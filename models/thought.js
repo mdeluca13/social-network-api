@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const reactionSchema = require('./reaction');
+const format = require('date-fns/format');
 
 // Schema to create a course model
 const thoughtSchema = new Schema(
@@ -13,7 +14,7 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now(),
-            // figure out date formatting getter
+            get: (date) => format(new Date(date), "MMMM do, yyyy 'at' hh:mm a"),
         },
         username: {
             type: String,

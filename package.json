@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mdeluca13/social-network-api#readme",
   "dependencies": {
+    "date-fns": "^2.30.0",
     "express": "^4.18.2",
     "mongoose": "^6.9.2"
   }
