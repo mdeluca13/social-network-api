@@ -25,7 +25,7 @@ You will also need access to [Insomnia](https://insomnia.rest/) to test the API 
 1. Run node index.js in the Terminal for the index.js file to start the server
 2. In Insomnia, you can then run GET, POST, PUT, and DELETE on the different routes using http://localhost:3001/.
 
-You can view a [demonstration of the Social Network API here](https://drive.google.com/file/d/1uyxQB4WpU5R7q9FYquBcnFsjHl-n9dr8/view).
+You can view a [demonstration of the Social Network API here](https://drive.google.com/file/d/1h_akXDdn_v-Zx-c-_fnQbtudQfBJI1Oo/view).
 
 ## Credits
 
