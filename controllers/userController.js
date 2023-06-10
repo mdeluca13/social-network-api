@@ -1,12 +1,6 @@
 // Requiring models
 const { User, Thought } = require('../models');
 
-// virtual to get friendCount
-const friendCount = async () =>
-    User.aggregate()
-        .count('friendCount')
-        .then((numberOfFriends) => numberOfFriends);
-
 module.exports = {
 
     // GET all users including friendCount
@@ -15,7 +9,6 @@ module.exports = {
         .then(async (users) => {
             const userObj = {
             users,
-            friendCount: await friendCount(),
             };
             return res.json(userObj);
         })
@@ -26,7 +19,7 @@ module.exports = {
     },
 
     // GET individual user
-    getSingleUser(req, res) {
+    getIndividualUser(req, res) {
         User.findOne({ _id: req.params.userId })
         .select('-__v')
         .then(async (user) =>
@@ -77,10 +70,9 @@ module.exports = {
     // POST friend to add friend to user
     addFriend(req, res) {
         console.log('You are adding a friend.');
-        console.log(req.body);
         User.findOneAndUpdate(
-            { _id: req.params.usertId },
-            { $addToSet: { friends: req.body } },
+            { _id: req.params.userId },
+            { $addToSet: { friends: req.params.friendId } },
             { runValidators: true, new: true }
         )
         .then((user) =>
@@ -97,14 +89,12 @@ module.exports = {
     deleteFriend(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $pull: { friend: { friendId: req.params.friendId } } },
+            { $pull: { friends: req.params.friendId } },
             { runValidators: true, new: true }
         )
         .then((user) =>
             !user
-            ? res
-                .status(404)
-                .json({ message: 'There is no user with that ID.' })
+            ? res.status(404).json({ message: 'There is no user with that ID.' })
             : res.json(user)
         )
         .catch((err) => res.status(500).json(err));

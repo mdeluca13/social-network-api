@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 // Schema to create a course model
 const userSchema = new Schema(
@@ -24,7 +24,7 @@ const userSchema = new Schema(
         friends: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'Friend',
+                ref: 'User',
             },
         ],
     },
@@ -35,6 +35,11 @@ const userSchema = new Schema(
         id: false,
     }
 );
+
+// Virtual for friendCount
+userSchema.virtual('friendCount').get(function() {
+    return this.friends.length;
+});
 
 const User = model('user', userSchema);
 
